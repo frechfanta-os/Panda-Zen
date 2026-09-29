@@ -1,0 +1,2294 @@
+[
+  {
+    "id": "music_main_theme",
+    "path": "assets/audio/music/panda_zen_main_theme.mp3",
+    "category": "audio",
+    "type": "music",
+    "usage": "bgm_main",
+    "locale": null
+  },
+  {
+    "id": "sfx_correct_tile",
+    "path": "assets/audio/sfx/correct_tile.mp3",
+    "category": "audio",
+    "type": "sfx",
+    "usage": "feedback_correct",
+    "locale": null
+  },
+  {
+    "id": "sfx_hint",
+    "path": "assets/audio/sfx/hint.mp3",
+    "category": "audio",
+    "type": "sfx",
+    "usage": "hint_activated",
+    "locale": null
+  },
+  {
+    "id": "sfx_invalid_move",
+    "path": "assets/audio/sfx/invalid_move.mp3",
+    "category": "audio",
+    "type": "sfx",
+    "usage": "mistake_feedback",
+    "locale": null
+  },
+  {
+    "id": "sfx_panda_place",
+    "path": "assets/audio/sfx/panda_place.mp3",
+    "category": "audio",
+    "type": "sfx",
+    "usage": "panda_reveal",
+    "locale": null
+  },
+  {
+    "id": "panda_loading",
+    "path": "assets/images/panda/Panda_Allonge_Ventre.png",
+    "category": "panda",
+    "usage": "loading_relaxed",
+    "dimensions": [
+      356,
+      249
+    ],
+    "locale": null
+  },
+  {
+    "id": "panda_idle_calm",
+    "path": "assets/images/panda/Panda_Assis_Calme.png",
+    "category": "panda",
+    "usage": "default_idle",
+    "dimensions": [
+      239,
+      269
+    ],
+    "locale": null
+  },
+  {
+    "id": "panda_gameplay_idle",
+    "path": "assets/images/panda/Panda_Assis_Collier.png",
+    "category": "panda",
+    "usage": "gameplay_idle",
+    "dimensions": [
+      203,
+      282
+    ],
+    "locale": null
+  },
+  {
+    "id": "panda_observing",
+    "path": "assets/images/panda/Panda_Assis_Face_Collier.png",
+    "category": "panda",
+    "usage": "selected_observing",
+    "dimensions": [
+      229,
+      255
+    ],
+    "locale": null
+  },
+  {
+    "id": "panda_anticipation",
+    "path": "assets/images/panda/Panda_Attaque_Pret.png",
+    "category": "panda",
+    "usage": "alert_anticipation",
+    "dimensions": [
+      278,
+      240
+    ],
+    "locale": null
+  },
+  {
+    "id": "panda_victory",
+    "path": "assets/images/panda/Panda_Danse_Celebration.png",
+    "category": "panda",
+    "usage": "level_complete_celebration",
+    "dimensions": [
+      394,
+      293
+    ],
+    "locale": null
+  },
+  {
+    "id": "panda_menu_ambient",
+    "path": "assets/images/panda/Panda_Mange_Bambou.png",
+    "category": "panda",
+    "usage": "menu_ambient",
+    "dimensions": [
+      289,
+      290
+    ],
+    "locale": null
+  },
+  {
+    "id": "panda_transition",
+    "path": "assets/images/panda/Panda_Rampant_Bambou.png",
+    "category": "panda",
+    "usage": "playful_transition",
+    "dimensions": [
+      325,
+      270
+    ],
+    "locale": null
+  },
+  {
+    "id": "panda_hint",
+    "path": "assets/images/panda/Panda_Regard_Papillon.png",
+    "category": "panda",
+    "usage": "hint_butterfly",
+    "dimensions": [
+      270,
+      280
+    ],
+    "locale": null
+  },
+  {
+    "id": "panda_success_variant",
+    "path": "assets/images/panda/Panda_Roule_Dos.png",
+    "category": "panda",
+    "usage": "success_variant",
+    "dimensions": [
+      341,
+      261
+    ],
+    "locale": null
+  },
+  {
+    "id": "panda_reveal",
+    "path": "assets/images/panda/Panda_Salut_Joyeux.png",
+    "category": "panda",
+    "usage": "panda_found_reveal",
+    "dimensions": [
+      259,
+      289
+    ],
+    "locale": null
+  },
+  {
+    "id": "panda_mistake",
+    "path": "assets/images/panda/Panda_Timid_Incline.png",
+    "category": "panda",
+    "usage": "failed_mistake",
+    "dimensions": [
+      245,
+      263
+    ],
+    "locale": null
+  },
+  {
+    "id": "env_world_1",
+    "path": "assets/images/environments/Environnements01.png",
+    "category": "environment",
+    "world_index": 1,
+    "world_name": "Bamboo Forest",
+    "dimensions": [
+      426,
+      426
+    ],
+    "locale": null
+  },
+  {
+    "id": "env_world_2",
+    "path": "assets/images/environments/Environnements02.png",
+    "category": "environment",
+    "world_index": 2,
+    "world_name": "Moonlight Forest",
+    "dimensions": [
+      426,
+      426
+    ],
+    "locale": null
+  },
+  {
+    "id": "env_world_3",
+    "path": "assets/images/environments/Environnements03.png",
+    "category": "environment",
+    "world_index": 3,
+    "world_name": "Snow Bamboo",
+    "dimensions": [
+      426,
+      426
+    ],
+    "locale": null
+  },
+  {
+    "id": "env_world_4",
+    "path": "assets/images/environments/Environnements04.png",
+    "category": "environment",
+    "world_index": 4,
+    "world_name": "Panda Temple",
+    "dimensions": [
+      426,
+      426
+    ],
+    "locale": null
+  },
+  {
+    "id": "env_world_5",
+    "path": "assets/images/environments/Environnements05.png",
+    "category": "environment",
+    "world_index": 5,
+    "world_name": "Spring Valley",
+    "dimensions": [
+      426,
+      426
+    ],
+    "locale": null
+  },
+  {
+    "id": "env_world_6",
+    "path": "assets/images/environments/Environnements06.png",
+    "category": "environment",
+    "world_index": 6,
+    "world_name": "Rainy Forest",
+    "dimensions": [
+      426,
+      426
+    ],
+    "locale": null
+  },
+  {
+    "id": "cell_cells01",
+    "path": "assets/images/cells/Cells01.png",
+    "category": "cell",
+    "dimensions": [
+      184,
+      178
+    ],
+    "locale": null
+  },
+  {
+    "id": "cell_cells02",
+    "path": "assets/images/cells/Cells02.png",
+    "category": "cell",
+    "dimensions": [
+      183,
+      181
+    ],
+    "locale": null
+  },
+  {
+    "id": "cell_cells03",
+    "path": "assets/images/cells/Cells03.png",
+    "category": "cell",
+    "dimensions": [
+      176,
+      173
+    ],
+    "locale": null
+  },
+  {
+    "id": "cell_cells04",
+    "path": "assets/images/cells/Cells04.png",
+    "category": "cell",
+    "dimensions": [
+      191,
+      175
+    ],
+    "locale": null
+  },
+  {
+    "id": "cell_cells05",
+    "path": "assets/images/cells/Cells05.png",
+    "category": "cell",
+    "dimensions": [
+      177,
+      168
+    ],
+    "locale": null
+  },
+  {
+    "id": "cell_cells06",
+    "path": "assets/images/cells/Cells06.png",
+    "category": "cell",
+    "dimensions": [
+      179,
+      171
+    ],
+    "locale": null
+  },
+  {
+    "id": "cell_cells07",
+    "path": "assets/images/cells/Cells07.png",
+    "category": "cell",
+    "dimensions": [
+      175,
+      176
+    ],
+    "locale": null
+  },
+  {
+    "id": "cell_cells08",
+    "path": "assets/images/cells/Cells08.png",
+    "category": "cell",
+    "dimensions": [
+      175,
+      178
+    ],
+    "locale": null
+  },
+  {
+    "id": "cell_cells09",
+    "path": "assets/images/cells/Cells09.png",
+    "category": "cell",
+    "dimensions": [
+      177,
+      177
+    ],
+    "locale": null
+  },
+  {
+    "id": "cell_cells10",
+    "path": "assets/images/cells/Cells10.png",
+    "category": "cell",
+    "dimensions": [
+      181,
+      183
+    ],
+    "locale": null
+  },
+  {
+    "id": "cell_cells11",
+    "path": "assets/images/cells/Cells11.png",
+    "category": "cell",
+    "dimensions": [
+      175,
+      175
+    ],
+    "locale": null
+  },
+  {
+    "id": "cell_cells12",
+    "path": "assets/images/cells/Cells12.png",
+    "category": "cell",
+    "dimensions": [
+      172,
+      175
+    ],
+    "locale": null
+  },
+  {
+    "id": "cell_cells13",
+    "path": "assets/images/cells/Cells13.png",
+    "category": "cell",
+    "dimensions": [
+      171,
+      179
+    ],
+    "locale": null
+  },
+  {
+    "id": "cell_cells14",
+    "path": "assets/images/cells/Cells14.png",
+    "category": "cell",
+    "dimensions": [
+      167,
+      177
+    ],
+    "locale": null
+  },
+  {
+    "id": "cell_cells15",
+    "path": "assets/images/cells/Cells15.png",
+    "category": "cell",
+    "dimensions": [
+      171,
+      177
+    ],
+    "locale": null
+  },
+  {
+    "id": "cell_cells16",
+    "path": "assets/images/cells/Cells16.png",
+    "category": "cell",
+    "dimensions": [
+      172,
+      183
+    ],
+    "locale": null
+  },
+  {
+    "id": "cell_cells17",
+    "path": "assets/images/cells/Cells17.png",
+    "category": "cell",
+    "dimensions": [
+      176,
+      182
+    ],
+    "locale": null
+  },
+  {
+    "id": "cell_cells18",
+    "path": "assets/images/cells/Cells18.png",
+    "category": "cell",
+    "dimensions": [
+      139,
+      132
+    ],
+    "locale": null
+  },
+  {
+    "id": "cell_cells19",
+    "path": "assets/images/cells/Cells19.png",
+    "category": "cell",
+    "dimensions": [
+      129,
+      127
+    ],
+    "locale": null
+  },
+  {
+    "id": "cell_cells20",
+    "path": "assets/images/cells/Cells20.png",
+    "category": "cell",
+    "dimensions": [
+      127,
+      125
+    ],
+    "locale": null
+  },
+  {
+    "id": "cell_cells21",
+    "path": "assets/images/cells/Cells21.png",
+    "category": "cell",
+    "dimensions": [
+      124,
+      127
+    ],
+    "locale": null
+  },
+  {
+    "id": "cell_cells22",
+    "path": "assets/images/cells/Cells22.png",
+    "category": "cell",
+    "dimensions": [
+      129,
+      127
+    ],
+    "locale": null
+  },
+  {
+    "id": "cell_cells23",
+    "path": "assets/images/cells/Cells23.png",
+    "category": "cell",
+    "dimensions": [
+      122,
+      120
+    ],
+    "locale": null
+  },
+  {
+    "id": "cell_cells24",
+    "path": "assets/images/cells/Cells24.png",
+    "category": "cell",
+    "dimensions": [
+      118,
+      120
+    ],
+    "locale": null
+  },
+  {
+    "id": "cell_cells25",
+    "path": "assets/images/cells/Cells25.png",
+    "category": "cell",
+    "dimensions": [
+      113,
+      121
+    ],
+    "locale": null
+  },
+  {
+    "id": "cell_cells26",
+    "path": "assets/images/cells/Cells26.png",
+    "category": "cell",
+    "dimensions": [
+      127,
+      117
+    ],
+    "locale": null
+  },
+  {
+    "id": "cell_cells27",
+    "path": "assets/images/cells/Cells27.png",
+    "category": "cell",
+    "dimensions": [
+      130,
+      119
+    ],
+    "locale": null
+  },
+  {
+    "id": "cell_cells28",
+    "path": "assets/images/cells/Cells28.png",
+    "category": "cell",
+    "dimensions": [
+      127,
+      119
+    ],
+    "locale": null
+  },
+  {
+    "id": "cell_cells29",
+    "path": "assets/images/cells/Cells29.png",
+    "category": "cell",
+    "dimensions": [
+      132,
+      124
+    ],
+    "locale": null
+  },
+  {
+    "id": "cell_cells30",
+    "path": "assets/images/cells/Cells30.png",
+    "category": "cell",
+    "dimensions": [
+      179,
+      157
+    ],
+    "locale": null
+  },
+  {
+    "id": "cell_cells31",
+    "path": "assets/images/cells/Cells31.png",
+    "category": "cell",
+    "dimensions": [
+      194,
+      156
+    ],
+    "locale": null
+  },
+  {
+    "id": "cell_cells32",
+    "path": "assets/images/cells/Cells32.png",
+    "category": "cell",
+    "dimensions": [
+      181,
+      124
+    ],
+    "locale": null
+  },
+  {
+    "id": "cell_cells33",
+    "path": "assets/images/cells/Cells33.png",
+    "category": "cell",
+    "dimensions": [
+      189,
+      159
+    ],
+    "locale": null
+  },
+  {
+    "id": "cell_cells34",
+    "path": "assets/images/cells/Cells34.png",
+    "category": "cell",
+    "dimensions": [
+      205,
+      176
+    ],
+    "locale": null
+  },
+  {
+    "id": "cell_cells35",
+    "path": "assets/images/cells/Cells35.png",
+    "category": "cell",
+    "dimensions": [
+      132,
+      149
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions01",
+    "path": "assets/images/regions/Regions01.png",
+    "category": "region",
+    "dimensions": [
+      210,
+      239
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions02",
+    "path": "assets/images/regions/Regions02.png",
+    "category": "region",
+    "dimensions": [
+      76,
+      76
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions03",
+    "path": "assets/images/regions/Regions03.png",
+    "category": "region",
+    "dimensions": [
+      77,
+      75
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions04",
+    "path": "assets/images/regions/Regions04.png",
+    "category": "region",
+    "dimensions": [
+      76,
+      75
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions05",
+    "path": "assets/images/regions/Regions05.png",
+    "category": "region",
+    "dimensions": [
+      78,
+      77
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions06",
+    "path": "assets/images/regions/Regions06.png",
+    "category": "region",
+    "dimensions": [
+      78,
+      75
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions07",
+    "path": "assets/images/regions/Regions07.png",
+    "category": "region",
+    "dimensions": [
+      78,
+      75
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions08",
+    "path": "assets/images/regions/Regions08.png",
+    "category": "region",
+    "dimensions": [
+      210,
+      249
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions09",
+    "path": "assets/images/regions/Regions09.png",
+    "category": "region",
+    "dimensions": [
+      78,
+      78
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions10",
+    "path": "assets/images/regions/Regions10.png",
+    "category": "region",
+    "dimensions": [
+      78,
+      75
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions11",
+    "path": "assets/images/regions/Regions11.png",
+    "category": "region",
+    "dimensions": [
+      77,
+      74
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions12",
+    "path": "assets/images/regions/Regions12.png",
+    "category": "region",
+    "dimensions": [
+      77,
+      76
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions13",
+    "path": "assets/images/regions/Regions13.png",
+    "category": "region",
+    "dimensions": [
+      76,
+      75
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions14",
+    "path": "assets/images/regions/Regions14.png",
+    "category": "region",
+    "dimensions": [
+      77,
+      74
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions15",
+    "path": "assets/images/regions/Regions15.png",
+    "category": "region",
+    "dimensions": [
+      211,
+      242
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions16",
+    "path": "assets/images/regions/Regions16.png",
+    "category": "region",
+    "dimensions": [
+      76,
+      76
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions17",
+    "path": "assets/images/regions/Regions17.png",
+    "category": "region",
+    "dimensions": [
+      77,
+      75
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions18",
+    "path": "assets/images/regions/Regions18.png",
+    "category": "region",
+    "dimensions": [
+      77,
+      73
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions19",
+    "path": "assets/images/regions/Regions19.png",
+    "category": "region",
+    "dimensions": [
+      77,
+      76
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions20",
+    "path": "assets/images/regions/Regions20.png",
+    "category": "region",
+    "dimensions": [
+      77,
+      75
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions21",
+    "path": "assets/images/regions/Regions21.png",
+    "category": "region",
+    "dimensions": [
+      77,
+      74
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions22",
+    "path": "assets/images/regions/Regions22.png",
+    "category": "region",
+    "dimensions": [
+      201,
+      243
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions23",
+    "path": "assets/images/regions/Regions23.png",
+    "category": "region",
+    "dimensions": [
+      75,
+      78
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions24",
+    "path": "assets/images/regions/Regions24.png",
+    "category": "region",
+    "dimensions": [
+      75,
+      75
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions25",
+    "path": "assets/images/regions/Regions25.png",
+    "category": "region",
+    "dimensions": [
+      74,
+      73
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions26",
+    "path": "assets/images/regions/Regions26.png",
+    "category": "region",
+    "dimensions": [
+      78,
+      73
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions27",
+    "path": "assets/images/regions/Regions27.png",
+    "category": "region",
+    "dimensions": [
+      77,
+      77
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions28",
+    "path": "assets/images/regions/Regions28.png",
+    "category": "region",
+    "dimensions": [
+      77,
+      75
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions29",
+    "path": "assets/images/regions/Regions29.png",
+    "category": "region",
+    "dimensions": [
+      64,
+      93
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions30",
+    "path": "assets/images/regions/Regions30.png",
+    "category": "region",
+    "dimensions": [
+      65,
+      70
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions31",
+    "path": "assets/images/regions/Regions31.png",
+    "category": "region",
+    "dimensions": [
+      66,
+      90
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions32",
+    "path": "assets/images/regions/Regions32.png",
+    "category": "region",
+    "dimensions": [
+      66,
+      66
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions33",
+    "path": "assets/images/regions/Regions33.png",
+    "category": "region",
+    "dimensions": [
+      68,
+      92
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions34",
+    "path": "assets/images/regions/Regions34.png",
+    "category": "region",
+    "dimensions": [
+      65,
+      93
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions35",
+    "path": "assets/images/regions/Regions35.png",
+    "category": "region",
+    "dimensions": [
+      66,
+      70
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions36",
+    "path": "assets/images/regions/Regions36.png",
+    "category": "region",
+    "dimensions": [
+      66,
+      90
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions37",
+    "path": "assets/images/regions/Regions37.png",
+    "category": "region",
+    "dimensions": [
+      67,
+      65
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions38",
+    "path": "assets/images/regions/Regions38.png",
+    "category": "region",
+    "dimensions": [
+      70,
+      92
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions39",
+    "path": "assets/images/regions/Regions39.png",
+    "category": "region",
+    "dimensions": [
+      68,
+      93
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions40",
+    "path": "assets/images/regions/Regions40.png",
+    "category": "region",
+    "dimensions": [
+      67,
+      69
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions41",
+    "path": "assets/images/regions/Regions41.png",
+    "category": "region",
+    "dimensions": [
+      65,
+      87
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions42",
+    "path": "assets/images/regions/Regions42.png",
+    "category": "region",
+    "dimensions": [
+      65,
+      65
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions43",
+    "path": "assets/images/regions/Regions43.png",
+    "category": "region",
+    "dimensions": [
+      69,
+      92
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions44",
+    "path": "assets/images/regions/Regions44.png",
+    "category": "region",
+    "dimensions": [
+      63,
+      90
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions45",
+    "path": "assets/images/regions/Regions45.png",
+    "category": "region",
+    "dimensions": [
+      64,
+      67
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions46",
+    "path": "assets/images/regions/Regions46.png",
+    "category": "region",
+    "dimensions": [
+      64,
+      84
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions47",
+    "path": "assets/images/regions/Regions47.png",
+    "category": "region",
+    "dimensions": [
+      63,
+      63
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions48",
+    "path": "assets/images/regions/Regions48.png",
+    "category": "region",
+    "dimensions": [
+      68,
+      89
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions49",
+    "path": "assets/images/regions/Regions49.png",
+    "category": "region",
+    "dimensions": [
+      65,
+      93
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions50",
+    "path": "assets/images/regions/Regions50.png",
+    "category": "region",
+    "dimensions": [
+      205,
+      230
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions51",
+    "path": "assets/images/regions/Regions51.png",
+    "category": "region",
+    "dimensions": [
+      66,
+      69
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions52",
+    "path": "assets/images/regions/Regions52.png",
+    "category": "region",
+    "dimensions": [
+      66,
+      90
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions53",
+    "path": "assets/images/regions/Regions53.png",
+    "category": "region",
+    "dimensions": [
+      77,
+      80
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions54",
+    "path": "assets/images/regions/Regions54.png",
+    "category": "region",
+    "dimensions": [
+      77,
+      77
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions55",
+    "path": "assets/images/regions/Regions55.png",
+    "category": "region",
+    "dimensions": [
+      75,
+      54
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions56",
+    "path": "assets/images/regions/Regions56.png",
+    "category": "region",
+    "dimensions": [
+      66,
+      68
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions57",
+    "path": "assets/images/regions/Regions57.png",
+    "category": "region",
+    "dimensions": [
+      78,
+      80
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions58",
+    "path": "assets/images/regions/Regions58.png",
+    "category": "region",
+    "dimensions": [
+      78,
+      78
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions59",
+    "path": "assets/images/regions/Regions59.png",
+    "category": "region",
+    "dimensions": [
+      79,
+      74
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions60",
+    "path": "assets/images/regions/Regions60.png",
+    "category": "region",
+    "dimensions": [
+      71,
+      96
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions61",
+    "path": "assets/images/regions/Regions61.png",
+    "category": "region",
+    "dimensions": [
+      66,
+      94
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions62",
+    "path": "assets/images/regions/Regions62.png",
+    "category": "region",
+    "dimensions": [
+      214,
+      232
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions63",
+    "path": "assets/images/regions/Regions63.png",
+    "category": "region",
+    "dimensions": [
+      67,
+      69
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions64",
+    "path": "assets/images/regions/Regions64.png",
+    "category": "region",
+    "dimensions": [
+      67,
+      90
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions65",
+    "path": "assets/images/regions/Regions65.png",
+    "category": "region",
+    "dimensions": [
+      79,
+      80
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions66",
+    "path": "assets/images/regions/Regions66.png",
+    "category": "region",
+    "dimensions": [
+      79,
+      78
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions67",
+    "path": "assets/images/regions/Regions67.png",
+    "category": "region",
+    "dimensions": [
+      79,
+      55
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions68",
+    "path": "assets/images/regions/Regions68.png",
+    "category": "region",
+    "dimensions": [
+      68,
+      69
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions69",
+    "path": "assets/images/regions/Regions69.png",
+    "category": "region",
+    "dimensions": [
+      79,
+      80
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions70",
+    "path": "assets/images/regions/Regions70.png",
+    "category": "region",
+    "dimensions": [
+      79,
+      78
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions71",
+    "path": "assets/images/regions/Regions71.png",
+    "category": "region",
+    "dimensions": [
+      79,
+      75
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions72",
+    "path": "assets/images/regions/Regions72.png",
+    "category": "region",
+    "dimensions": [
+      72,
+      94
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions73",
+    "path": "assets/images/regions/Regions73.png",
+    "category": "region",
+    "dimensions": [
+      67,
+      93
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions74",
+    "path": "assets/images/regions/Regions74.png",
+    "category": "region",
+    "dimensions": [
+      212,
+      230
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions75",
+    "path": "assets/images/regions/Regions75.png",
+    "category": "region",
+    "dimensions": [
+      69,
+      71
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions76",
+    "path": "assets/images/regions/Regions76.png",
+    "category": "region",
+    "dimensions": [
+      69,
+      90
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions77",
+    "path": "assets/images/regions/Regions77.png",
+    "category": "region",
+    "dimensions": [
+      79,
+      81
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions78",
+    "path": "assets/images/regions/Regions78.png",
+    "category": "region",
+    "dimensions": [
+      79,
+      79
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions79",
+    "path": "assets/images/regions/Regions79.png",
+    "category": "region",
+    "dimensions": [
+      79,
+      55
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions80",
+    "path": "assets/images/regions/Regions80.png",
+    "category": "region",
+    "dimensions": [
+      69,
+      70
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions81",
+    "path": "assets/images/regions/Regions81.png",
+    "category": "region",
+    "dimensions": [
+      82,
+      81
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions82",
+    "path": "assets/images/regions/Regions82.png",
+    "category": "region",
+    "dimensions": [
+      82,
+      80
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions83",
+    "path": "assets/images/regions/Regions83.png",
+    "category": "region",
+    "dimensions": [
+      82,
+      75
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions84",
+    "path": "assets/images/regions/Regions84.png",
+    "category": "region",
+    "dimensions": [
+      76,
+      93
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions85",
+    "path": "assets/images/regions/Regions85.png",
+    "category": "region",
+    "dimensions": [
+      146,
+      74
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions86",
+    "path": "assets/images/regions/Regions86.png",
+    "category": "region",
+    "dimensions": [
+      162,
+      102
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions87",
+    "path": "assets/images/regions/Regions87.png",
+    "category": "region",
+    "dimensions": [
+      132,
+      163
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions88",
+    "path": "assets/images/regions/Regions88.png",
+    "category": "region",
+    "dimensions": [
+      118,
+      82
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions89",
+    "path": "assets/images/regions/Regions89.png",
+    "category": "region",
+    "dimensions": [
+      73,
+      44
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions90",
+    "path": "assets/images/regions/Regions90.png",
+    "category": "region",
+    "dimensions": [
+      93,
+      106
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions91",
+    "path": "assets/images/regions/Regions91.png",
+    "category": "region",
+    "dimensions": [
+      130,
+      183
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions92",
+    "path": "assets/images/regions/Regions92.png",
+    "category": "region",
+    "dimensions": [
+      77,
+      104
+    ],
+    "locale": null
+  },
+  {
+    "id": "region_régions93",
+    "path": "assets/images/regions/Regions93.png",
+    "category": "region",
+    "dimensions": [
+      73,
+      74
+    ],
+    "locale": null
+  },
+  {
+    "id": "ui_hud_level_bar_en",
+    "semantic_id": "ui_hud_level_bar",
+    "path": "assets/images/ui/en/UI-EN01.png",
+    "category": "ui",
+    "usage": "hud_level_progress",
+    "dimensions": [
+      521,
+      125
+    ],
+    "locale": "en"
+  },
+  {
+    "id": "ui_hud_level_bar_fr",
+    "semantic_id": "ui_hud_level_bar",
+    "path": "assets/images/ui/fr/UI-FR01.png",
+    "category": "ui",
+    "usage": "hud_level_progress",
+    "dimensions": [
+      522,
+      125
+    ],
+    "locale": "fr"
+  },
+  {
+    "id": "ui_lives_bar_en",
+    "semantic_id": "ui_lives_bar",
+    "path": "assets/images/ui/en/UI-EN02.png",
+    "category": "ui",
+    "usage": "hud_lives_counter",
+    "dimensions": [
+      277,
+      68
+    ],
+    "locale": "en"
+  },
+  {
+    "id": "ui_lives_bar_fr",
+    "semantic_id": "ui_lives_bar",
+    "path": "assets/images/ui/fr/UI-FR02.png",
+    "category": "ui",
+    "usage": "hud_lives_counter",
+    "dimensions": [
+      278,
+      68
+    ],
+    "locale": "fr"
+  },
+  {
+    "id": "ui_coins_bar_en",
+    "semantic_id": "ui_coins_bar",
+    "path": "assets/images/ui/en/UI-EN03.png",
+    "category": "ui",
+    "usage": "currency_coins",
+    "dimensions": [
+      236,
+      67
+    ],
+    "locale": "en"
+  },
+  {
+    "id": "ui_coins_bar_fr",
+    "semantic_id": "ui_coins_bar",
+    "path": "assets/images/ui/fr/UI-FR03.png",
+    "category": "ui",
+    "usage": "currency_coins",
+    "dimensions": [
+      237,
+      67
+    ],
+    "locale": "fr"
+  },
+  {
+    "id": "ui_gems_bar_en",
+    "semantic_id": "ui_gems_bar",
+    "path": "assets/images/ui/en/UI-EN04.png",
+    "category": "ui",
+    "usage": "currency_gems",
+    "dimensions": [
+      202,
+      69
+    ],
+    "locale": "en"
+  },
+  {
+    "id": "ui_gems_bar_fr",
+    "semantic_id": "ui_gems_bar",
+    "path": "assets/images/ui/fr/UI-FR04.png",
+    "category": "ui",
+    "usage": "currency_gems",
+    "dimensions": [
+      202,
+      67
+    ],
+    "locale": "fr"
+  },
+  {
+    "id": "ui_btn_settings_icon_en",
+    "semantic_id": "ui_btn_settings_icon",
+    "path": "assets/images/ui/en/UI-EN05.png",
+    "category": "ui",
+    "usage": "button_settings_icon",
+    "dimensions": [
+      96,
+      95
+    ],
+    "locale": "en"
+  },
+  {
+    "id": "ui_btn_settings_icon_fr",
+    "semantic_id": "ui_btn_settings_icon",
+    "path": "assets/images/ui/fr/UI-FR05.png",
+    "category": "ui",
+    "usage": "button_settings_icon",
+    "dimensions": [
+      97,
+      95
+    ],
+    "locale": "fr"
+  },
+  {
+    "id": "ui_btn_leaderboard_icon_en",
+    "semantic_id": "ui_btn_leaderboard_icon",
+    "path": "assets/images/ui/en/UI-EN06.png",
+    "category": "ui",
+    "usage": "button_leaderboard_icon",
+    "dimensions": [
+      96,
+      95
+    ],
+    "locale": "en"
+  },
+  {
+    "id": "ui_btn_leaderboard_icon_fr",
+    "semantic_id": "ui_btn_leaderboard_icon",
+    "path": "assets/images/ui/fr/UI-FR06.png",
+    "category": "ui",
+    "usage": "button_leaderboard_icon",
+    "dimensions": [
+      96,
+      95
+    ],
+    "locale": "fr"
+  },
+  {
+    "id": "ui_btn_shop_icon_en",
+    "semantic_id": "ui_btn_shop_icon",
+    "path": "assets/images/ui/en/UI-EN07.png",
+    "category": "ui",
+    "usage": "button_shop_icon",
+    "dimensions": [
+      95,
+      95
+    ],
+    "locale": "en"
+  },
+  {
+    "id": "ui_btn_shop_icon_fr",
+    "semantic_id": "ui_btn_shop_icon",
+    "path": "assets/images/ui/fr/UI-FR07.png",
+    "category": "ui",
+    "usage": "button_shop_icon",
+    "dimensions": [
+      97,
+      95
+    ],
+    "locale": "fr"
+  },
+  {
+    "id": "ui_btn_play_en",
+    "semantic_id": "ui_btn_play",
+    "path": "assets/images/ui/en/UI-EN08.png",
+    "category": "ui",
+    "usage": "button_play_main",
+    "dimensions": [
+      310,
+      95
+    ],
+    "locale": "en"
+  },
+  {
+    "id": "ui_btn_play_fr",
+    "semantic_id": "ui_btn_play",
+    "path": "assets/images/ui/fr/UI-FR08.png",
+    "category": "ui",
+    "usage": "button_play_main",
+    "dimensions": [
+      310,
+      94
+    ],
+    "locale": "fr"
+  },
+  {
+    "id": "ui_btn_worlds_en",
+    "semantic_id": "ui_btn_worlds",
+    "path": "assets/images/ui/en/UI-EN09.png",
+    "category": "ui",
+    "usage": "button_worlds",
+    "dimensions": [
+      250,
+      97
+    ],
+    "locale": "en"
+  },
+  {
+    "id": "ui_btn_worlds_fr",
+    "semantic_id": "ui_btn_worlds",
+    "path": "assets/images/ui/fr/UI-FR09.png",
+    "category": "ui",
+    "usage": "button_worlds",
+    "dimensions": [
+      251,
+      96
+    ],
+    "locale": "fr"
+  },
+  {
+    "id": "ui_btn_daily_en",
+    "semantic_id": "ui_btn_daily",
+    "path": "assets/images/ui/en/UI-EN10.png",
+    "category": "ui",
+    "usage": "button_daily_challenge",
+    "dimensions": [
+      259,
+      96
+    ],
+    "locale": "en"
+  },
+  {
+    "id": "ui_btn_daily_fr",
+    "semantic_id": "ui_btn_daily",
+    "path": "assets/images/ui/fr/UI-FR10.png",
+    "category": "ui",
+    "usage": "button_daily_challenge",
+    "dimensions": [
+      258,
+      95
+    ],
+    "locale": "fr"
+  },
+  {
+    "id": "ui_btn_leaderboard_en",
+    "semantic_id": "ui_btn_leaderboard",
+    "path": "assets/images/ui/en/UI-EN11.png",
+    "category": "ui",
+    "usage": "button_leaderboard",
+    "dimensions": [
+      263,
+      94
+    ],
+    "locale": "en"
+  },
+  {
+    "id": "ui_btn_leaderboard_fr",
+    "semantic_id": "ui_btn_leaderboard",
+    "path": "assets/images/ui/fr/UI-FR11.png",
+    "category": "ui",
+    "usage": "button_leaderboard",
+    "dimensions": [
+      263,
+      94
+    ],
+    "locale": "fr"
+  },
+  {
+    "id": "ui_btn_skins_en",
+    "semantic_id": "ui_btn_skins",
+    "path": "assets/images/ui/en/UI-EN12.png",
+    "category": "ui",
+    "usage": "button_skins",
+    "dimensions": [
+      229,
+      94
+    ],
+    "locale": "en"
+  },
+  {
+    "id": "ui_btn_skins_fr",
+    "semantic_id": "ui_btn_skins",
+    "path": "assets/images/ui/fr/UI-FR12.png",
+    "category": "ui",
+    "usage": "button_skins",
+    "dimensions": [
+      229,
+      93
+    ],
+    "locale": "fr"
+  },
+  {
+    "id": "ui_btn_settings_en",
+    "semantic_id": "ui_btn_settings",
+    "path": "assets/images/ui/en/UI-EN13.png",
+    "category": "ui",
+    "usage": "button_settings",
+    "dimensions": [
+      262,
+      94
+    ],
+    "locale": "en"
+  },
+  {
+    "id": "ui_btn_settings_fr",
+    "semantic_id": "ui_btn_settings",
+    "path": "assets/images/ui/fr/UI-FR13.png",
+    "category": "ui",
+    "usage": "button_settings",
+    "dimensions": [
+      261,
+      93
+    ],
+    "locale": "fr"
+  },
+  {
+    "id": "ui_btn_hint_en",
+    "semantic_id": "ui_btn_hint",
+    "path": "assets/images/ui/en/UI-EN14.png",
+    "category": "ui",
+    "usage": "button_hint",
+    "dimensions": [
+      202,
+      97
+    ],
+    "locale": "en"
+  },
+  {
+    "id": "ui_btn_hint_fr",
+    "semantic_id": "ui_btn_hint",
+    "path": "assets/images/ui/fr/UI-FR14.png",
+    "category": "ui",
+    "usage": "button_hint",
+    "dimensions": [
+      203,
+      96
+    ],
+    "locale": "fr"
+  },
+  {
+    "id": "ui_btn_undo_en",
+    "semantic_id": "ui_btn_undo",
+    "path": "assets/images/ui/en/UI-EN15.png",
+    "category": "ui",
+    "usage": "button_undo",
+    "dimensions": [
+      203,
+      83
+    ],
+    "locale": "en"
+  },
+  {
+    "id": "ui_btn_undo_fr",
+    "semantic_id": "ui_btn_undo",
+    "path": "assets/images/ui/fr/UI-FR15.png",
+    "category": "ui",
+    "usage": "button_undo",
+    "dimensions": [
+      201,
+      82
+    ],
+    "locale": "fr"
+  },
+  {
+    "id": "ui_btn_clear_en",
+    "semantic_id": "ui_btn_clear",
+    "path": "assets/images/ui/en/UI-EN16.png",
+    "category": "ui",
+    "usage": "button_clear",
+    "dimensions": [
+      198,
+      81
+    ],
+    "locale": "en"
+  },
+  {
+    "id": "ui_btn_clear_fr",
+    "semantic_id": "ui_btn_clear",
+    "path": "assets/images/ui/fr/UI-FR16.png",
+    "category": "ui",
+    "usage": "button_clear",
+    "dimensions": [
+      197,
+      81
+    ],
+    "locale": "fr"
+  },
+  {
+    "id": "ui_btn_restart_en",
+    "semantic_id": "ui_btn_restart",
+    "path": "assets/images/ui/en/UI-EN17.png",
+    "category": "ui",
+    "usage": "button_restart",
+    "dimensions": [
+      231,
+      82
+    ],
+    "locale": "en"
+  },
+  {
+    "id": "ui_btn_restart_fr",
+    "semantic_id": "ui_btn_restart",
+    "path": "assets/images/ui/fr/UI-FR17.png",
+    "category": "ui",
+    "usage": "button_restart",
+    "dimensions": [
+      230,
+      81
+    ],
+    "locale": "fr"
+  },
+  {
+    "id": "ui_btn_pause_en",
+    "semantic_id": "ui_btn_pause",
+    "path": "assets/images/ui/en/UI-EN18.png",
+    "category": "ui",
+    "usage": "button_pause",
+    "dimensions": [
+      186,
+      81
+    ],
+    "locale": "en"
+  },
+  {
+    "id": "ui_btn_pause_fr",
+    "semantic_id": "ui_btn_pause",
+    "path": "assets/images/ui/fr/UI-FR18.png",
+    "category": "ui",
+    "usage": "button_pause",
+    "dimensions": [
+      187,
+      80
+    ],
+    "locale": "fr"
+  },
+  {
+    "id": "ui_btn_music_en",
+    "semantic_id": "ui_btn_music",
+    "path": "assets/images/ui/en/UI-EN19.png",
+    "category": "ui",
+    "usage": "button_music",
+    "dimensions": [
+      91,
+      81
+    ],
+    "locale": "en"
+  },
+  {
+    "id": "ui_btn_music_fr",
+    "semantic_id": "ui_btn_music",
+    "path": "assets/images/ui/fr/UI-FR19.png",
+    "category": "ui",
+    "usage": "button_music",
+    "dimensions": [
+      91,
+      81
+    ],
+    "locale": "fr"
+  },
+  {
+    "id": "ui_btn_sound_en",
+    "semantic_id": "ui_btn_sound",
+    "path": "assets/images/ui/en/UI-EN20.png",
+    "category": "ui",
+    "usage": "button_sound",
+    "dimensions": [
+      94,
+      82
+    ],
+    "locale": "en"
+  },
+  {
+    "id": "ui_btn_sound_fr",
+    "semantic_id": "ui_btn_sound",
+    "path": "assets/images/ui/fr/UI-FR20.png",
+    "category": "ui",
+    "usage": "button_sound",
+    "dimensions": [
+      94,
+      82
+    ],
+    "locale": "fr"
+  },
+  {
+    "id": "ui_btn_fullscreen_en",
+    "semantic_id": "ui_btn_fullscreen",
+    "path": "assets/images/ui/en/UI-EN21.png",
+    "category": "ui",
+    "usage": "button_fullscreen",
+    "dimensions": [
+      65,
+      63
+    ],
+    "locale": "en"
+  },
+  {
+    "id": "ui_btn_fullscreen_fr",
+    "semantic_id": "ui_btn_fullscreen",
+    "path": "assets/images/ui/fr/UI-FR21.png",
+    "category": "ui",
+    "usage": "button_fullscreen",
+    "dimensions": [
+      64,
+      63
+    ],
+    "locale": "fr"
+  },
+  {
+    "id": "ui_btn_help_en",
+    "semantic_id": "ui_btn_help",
+    "path": "assets/images/ui/en/UI-EN22.png",
+    "category": "ui",
+    "usage": "button_help",
+    "dimensions": [
+      63,
+      63
+    ],
+    "locale": "en"
+  },
+  {
+    "id": "ui_btn_help_fr",
+    "semantic_id": "ui_btn_help",
+    "path": "assets/images/ui/fr/UI-FR22.png",
+    "category": "ui",
+    "usage": "button_help",
+    "dimensions": [
+      64,
+      63
+    ],
+    "locale": "fr"
+  },
+  {
+    "id": "ui_btn_info_en",
+    "semantic_id": "ui_btn_info",
+    "path": "assets/images/ui/en/UI-EN23.png",
+    "category": "ui",
+    "usage": "button_info",
+    "dimensions": [
+      60,
+      62
+    ],
+    "locale": "en"
+  },
+  {
+    "id": "ui_btn_info_fr",
+    "semantic_id": "ui_btn_info",
+    "path": "assets/images/ui/fr/UI-FR23.png",
+    "category": "ui",
+    "usage": "button_info",
+    "dimensions": [
+      59,
+      62
+    ],
+    "locale": "fr"
+  },
+  {
+    "id": "ui_modal_preview_en",
+    "semantic_id": "ui_modal_preview",
+    "path": "assets/images/ui/en/UI-EN24.png",
+    "category": "ui",
+    "usage": "modal_level_preview",
+    "dimensions": [
+      555,
+      379
+    ],
+    "locale": "en"
+  },
+  {
+    "id": "ui_modal_preview_fr",
+    "semantic_id": "ui_modal_preview",
+    "path": "assets/images/ui/fr/UI-FR24.png",
+    "category": "ui",
+    "usage": "modal_level_preview",
+    "dimensions": [
+      557,
+      379
+    ],
+    "locale": "fr"
+  },
+  {
+    "id": "ui_modal_complete_en",
+    "semantic_id": "ui_modal_complete",
+    "path": "assets/images/ui/en/UI-EN25.png",
+    "category": "ui",
+    "usage": "modal_level_complete",
+    "dimensions": [
+      393,
+      422
+    ],
+    "locale": "en"
+  },
+  {
+    "id": "ui_modal_complete_fr",
+    "semantic_id": "ui_modal_complete",
+    "path": "assets/images/ui/fr/UI-FR25.png",
+    "category": "ui",
+    "usage": "modal_level_complete",
+    "dimensions": [
+      392,
+      423
+    ],
+    "locale": "fr"
+  },
+  {
+    "id": "ui_modal_failed_en",
+    "semantic_id": "ui_modal_failed",
+    "path": "assets/images/ui/en/UI-EN26.png",
+    "category": "ui",
+    "usage": "modal_level_failed",
+    "dimensions": [
+      395,
+      407
+    ],
+    "locale": "en"
+  },
+  {
+    "id": "ui_modal_failed_fr",
+    "semantic_id": "ui_modal_failed",
+    "path": "assets/images/ui/fr/UI-FR26.png",
+    "category": "ui",
+    "usage": "modal_level_failed",
+    "dimensions": [
+      393,
+      406
+    ],
+    "locale": "fr"
+  },
+  {
+    "id": "ui_modal_pause_en",
+    "semantic_id": "ui_modal_pause",
+    "path": "assets/images/ui/en/UI-EN27.png",
+    "category": "ui",
+    "usage": "modal_pause_menu",
+    "dimensions": [
+      270,
+      331
+    ],
+    "locale": "en"
+  },
+  {
+    "id": "ui_modal_pause_fr",
+    "semantic_id": "ui_modal_pause",
+    "path": "assets/images/ui/fr/UI-FR27.png",
+    "category": "ui",
+    "usage": "modal_pause_menu",
+    "dimensions": [
+      270,
+      330
+    ],
+    "locale": "fr"
+  },
+  {
+    "id": "ui_world_banner_en",
+    "semantic_id": "ui_world_banner",
+    "path": "assets/images/ui/en/UI-EN28.png",
+    "category": "ui",
+    "usage": "banner_world_card",
+    "dimensions": [
+      394,
+      139
+    ],
+    "locale": "en"
+  },
+  {
+    "id": "ui_world_banner_fr",
+    "semantic_id": "ui_world_banner",
+    "path": "assets/images/ui/fr/UI-FR28.png",
+    "category": "ui",
+    "usage": "banner_world_card",
+    "dimensions": [
+      393,
+      140
+    ],
+    "locale": "fr"
+  },
+  {
+    "id": "ui_btn_back_en",
+    "semantic_id": "ui_btn_back",
+    "path": "assets/images/ui/en/UI-EN29.png",
+    "category": "ui",
+    "usage": "button_navigation_back",
+    "dimensions": [
+      57,
+      68
+    ],
+    "locale": "en"
+  },
+  {
+    "id": "ui_btn_back_fr",
+    "semantic_id": "ui_btn_back",
+    "path": "assets/images/ui/fr/UI-FR29.png",
+    "category": "ui",
+    "usage": "button_navigation_back",
+    "dimensions": [
+      58,
+      69
+    ],
+    "locale": "fr"
+  },
+  {
+    "id": "ui_tile_level_en",
+    "semantic_id": "ui_tile_level",
+    "path": "assets/images/ui/en/UI-EN30.png",
+    "category": "ui",
+    "usage": "tile_level_button",
+    "dimensions": [
+      72,
+      86
+    ],
+    "locale": "en"
+  },
+  {
+    "id": "ui_tile_level_fr",
+    "semantic_id": "ui_tile_level",
+    "path": "assets/images/ui/fr/UI-FR30.png",
+    "category": "ui",
+    "usage": "tile_level_button",
+    "dimensions": [
+      71,
+      80
+    ],
+    "locale": "fr"
+  },
+  {
+    "id": "ui_btn_forward_en",
+    "semantic_id": "ui_btn_forward",
+    "path": "assets/images/ui/en/UI-EN31.png",
+    "category": "ui",
+    "usage": "button_navigation_forward",
+    "dimensions": [
+      57,
+      68
+    ],
+    "locale": "en"
+  },
+  {
+    "id": "ui_btn_forward_fr",
+    "semantic_id": "ui_btn_forward",
+    "path": "assets/images/ui/fr/UI-FR31.png",
+    "category": "ui",
+    "usage": "button_navigation_forward",
+    "dimensions": [
+      58,
+      69
+    ],
+    "locale": "fr"
+  },
+  {
+    "id": "ui_banner_rewards_en",
+    "semantic_id": "ui_banner_rewards",
+    "path": "assets/images/ui/en/UI-EN32.png",
+    "category": "ui",
+    "usage": "banner_milestone_rewards",
+    "dimensions": [
+      286,
+      172
+    ],
+    "locale": "en"
+  },
+  {
+    "id": "ui_banner_rewards_fr",
+    "semantic_id": "ui_banner_rewards",
+    "path": "assets/images/ui/fr/UI-FR32.png",
+    "category": "ui",
+    "usage": "banner_milestone_rewards",
+    "dimensions": [
+      286,
+      171
+    ],
+    "locale": "fr"
+  }
+]
