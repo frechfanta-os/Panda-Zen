@@ -1,9 +1,10 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../assets/panda_assets.dart';
 import '../../audio/audio_manager.dart';
 import '../../core/storage/save_service.dart';
 import '../home/home_screen.dart';
+import 'widgets/app_splash_screen.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
@@ -12,21 +13,13 @@ class SplashScreen extends ConsumerStatefulWidget {
   ConsumerState<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends ConsumerState<SplashScreen> with SingleTickerProviderStateMixin {
-  late AnimationController _animController;
-  late Animation<double> _fadeAnimation;
+class _SplashScreenState extends ConsumerState<SplashScreen> {
+  late final Future<void> _initFuture;
 
   @override
   void initState() {
     super.initState();
-    _animController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1200),
-    );
-    _fadeAnimation = CurvedAnimation(parent: _animController, curve: Curves.easeIn);
-    _animController.forward();
-
-    _initializeApp();
+    _initFuture = _initializeApp();
   }
 
   Future<void> _initializeApp() async {
@@ -43,65 +36,56 @@ class _SplashScreenState extends ConsumerState<SplashScreen> with SingleTickerPr
     if (save.musicEnabled) {
       await audio.music.startBgm();
     }
-
-    await Future.delayed(const Duration(milliseconds: 1800));
-
-    if (mounted) {
-      Navigator.of(context).pushReplacement(
-        PageRouteBuilder(
-          pageBuilder: (context, anim, secAnim) => const HomeScreen(),
-          transitionsBuilder: (context, animation, secAnim, child) =>
-              FadeTransition(opacity: animation, child: child),
-          transitionDuration: const Duration(milliseconds: 500),
-        ),
-      );
-    }
-  }
-
-  @override
-  void dispose() {
-    _animController.dispose();
-    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFF1B3B2B),
-      body: Center(
-        child: FadeTransition(
-          opacity: _fadeAnimation,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Image.asset(
-                PandaAssets.loadingRelaxed,
-                height: 160,
-                fit: BoxFit.contain,
-              ),
-              const SizedBox(height: 24),
-              const Text(
-                'Panda Zen',
-                style: TextStyle(
-                  color: Color(0xFFE8F5E9),
-                  fontSize: 36,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 2,
-                ),
-              ),
-              const SizedBox(height: 12),
-              const SizedBox(
-                width: 32,
-                height: 32,
-                child: CircularProgressIndicator(
-                  strokeWidth: 3,
-                  valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF81C784)),
-                ),
-              ),
-            ],
+    return AppSplashScreen(
+      appName: 'Panda Zen',
+      appLogo: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(28),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.35),
+              blurRadius: 18,
+              offset: const Offset(0, 8),
+            ),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(28),
+          child: Image.asset(
+            'assets/images/ui/panda_zen_icon.png',
+            width: 120,
+            height: 120,
+            fit: BoxFit.cover,
           ),
         ),
       ),
+      companyPrefix: 'from',
+      companyName: 'ghdinteractivestudio',
+      companyNameGradient: AppSplashScreen.zenJadeGradient,
+      preloadFuture: _initFuture,
+      duration: const Duration(milliseconds: 2400),
+      backgroundGradient: const LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: [
+          Color(0xFF142B20),
+          Color(0xFF1B3B2B),
+          Color(0xFF0F1F17),
+        ],
+      ),
+      onFinish: () {
+        if (mounted) {
+          Navigator.of(context).pushReplacement(
+            AppSplashScreen.fadeRoute(
+              page: const HomeScreen(),
+            ),
+          );
+        }
+      },
     );
   }
 }

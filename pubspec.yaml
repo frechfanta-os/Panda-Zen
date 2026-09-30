@@ -59,6 +59,7 @@ flutter:
     - assets/images/environments/
     - assets/images/panda/
     - assets/images/regions/
+    - assets/images/ui/
     - assets/images/ui/en/
     - assets/images/ui/fr/
 
