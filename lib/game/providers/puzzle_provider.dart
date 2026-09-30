@@ -26,19 +26,19 @@ class LevelSpec {
 final puzzleForLevelProvider = Provider.family<Puzzle, LevelSpec>((ref, spec) {
   final generator = ref.watch(puzzleGeneratorProvider);
   final size = switch (spec.world) {
-    1 => 4,
-    2 => 5,
-    3 => 5,
-    4 => 6,
-    5 => 6,
-    _ => 7,
+    1 => 8,
+    2 => 8,
+    3 => 8,
+    4 => 10,
+    5 => 10,
+    _ => 10,
   };
 
   final difficulty = switch (spec.world) {
     1 => PuzzleDifficulty.easy,
-    2 => PuzzleDifficulty.easy,
+    2 => PuzzleDifficulty.medium,
     3 => PuzzleDifficulty.medium,
-    4 => PuzzleDifficulty.medium,
+    4 => PuzzleDifficulty.hard,
     5 => PuzzleDifficulty.hard,
     _ => PuzzleDifficulty.expert,
   };

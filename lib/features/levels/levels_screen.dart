@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../assets/environment_assets.dart';
 import '../../assets/ui_assets.dart';
+import '../../core/storage/save_service.dart';
 import '../../game/providers/progression_provider.dart';
 import '../gameplay/gameplay_screen.dart';
 
@@ -21,7 +22,6 @@ class LevelsScreen extends ConsumerWidget {
     final save = ref.watch(saveServiceProvider);
 
     final bgImage = EnvironmentAssets.forWorld(world);
-    final unlockedLevel = save.getUnlockedLevel(world);
 
     return Scaffold(
       body: Stack(
@@ -51,13 +51,17 @@ class LevelsScreen extends ConsumerWidget {
                         ),
                       ),
                       const SizedBox(width: 16),
-                      Text(
-                        worldName,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          shadows: [Shadow(color: Colors.black54, blurRadius: 8)],
+                      Expanded(
+                        child: Text(
+                          worldName,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            shadows: [Shadow(color: Colors.black54, blurRadius: 8)],
+                          ),
                         ),
                       ),
                     ],
@@ -76,11 +80,12 @@ class LevelsScreen extends ConsumerWidget {
                       mainAxisSpacing: 18,
                       childAspectRatio: 0.9,
                     ),
-                    itemCount: 10,
+                    itemCount: SaveService.levelsPerWorld,
                     itemBuilder: (context, index) {
                       final level = index + 1;
-                      final isUnlocked = level <= unlockedLevel;
-                      final stars = save.getLevelStars('PZ_W${world}_L$level');
+                      final record = save.getLevelRecord(world, level);
+                      final isUnlocked = !record.isLocked;
+                      final stars = record.stars;
 
                       return GestureDetector(
                         onTap: isUnlocked

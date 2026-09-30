@@ -4,6 +4,12 @@ on:
   push:
     branches: [ main ]
   workflow_dispatch:
+    inputs:
+      require_production_signing:
+        description: 'Fail build if production signing secrets are missing'
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   build:
@@ -14,7 +20,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Java
+      - name: Set up Java 17
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
@@ -32,11 +38,122 @@ jobs:
       - name: Generate localizations
         run: flutter gen-l10n
 
-      - name: Build Release APK
-        run: flutter build apk --release
+      - name: Restore Production Keystore from Secret
+        id: restore_keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          REQUIRE_PROD: ${{ github.event.inputs.require_production_signing }}
+        run: |
+          KEYSTORE_DIR="$RUNNER_TEMP/keystore"
+          KEYSTORE_FILE="$KEYSTORE_DIR/panda-zen-upload.jks"
+          mkdir -p "$KEYSTORE_DIR"
+
+          if [ -n "$KEYSTORE_BASE64" ] && [ -n "$KEYSTORE_PASSWORD" ] && [ -n "$KEY_ALIAS" ] && [ -n "$KEY_PASSWORD" ]; then
+            echo "Production release signing secrets detected. Restoring keystore to temporary runner storage..."
+            echo "$KEYSTORE_BASE64" | base64 --decode > "$KEYSTORE_FILE"
+            echo "KEYSTORE_PATH=$KEYSTORE_FILE" >> $GITHUB_ENV
+            echo "KEYSTORE_PASSWORD=$KEYSTORE_PASSWORD" >> $GITHUB_ENV
+            echo "KEY_ALIAS=$KEY_ALIAS" >> $GITHUB_ENV
+            echo "KEY_PASSWORD=$KEY_PASSWORD" >> $GITHUB_ENV
+            echo "IS_PRODUCTION_SIGNED=true" >> $GITHUB_ENV
+            echo "Production signing configuration active: $KEYSTORE_FILE"
+          else
+            if [ "$REQUIRE_PROD" = "true" ]; then
+              echo "::error::Production signing was explicitly required, but one or more secrets (KEYSTORE_BASE64, KEYSTORE_PASSWORD, KEY_ALIAS, KEY_PASSWORD) are missing."
+              exit 1
+            fi
+            echo "No production signing secrets configured. Proceeding with unsigned/debug-signed fallback build."
+            echo "IS_PRODUCTION_SIGNED=false" >> $GITHUB_ENV
+          fi
+
+      - name: Verify static analysis
+        run: flutter analyze
+
+      - name: Run unit & widget tests
+        run: flutter test
 
       - name: Build App Bundle (AAB)
         run: flutter build appbundle --release
+
+      - name: Build Release APK
+        run: flutter build apk --release
+
+      - name: Verify Artifact Integrity & Checksums
+        run: |
+          AAB_PATH="build/app/outputs/bundle/release/app-release.aab"
+          APK_PATH="build/app/outputs/flutter-apk/app-release.apk"
+
+          if [ ! -f "$AAB_PATH" ]; then
+            echo "::error::Release AAB artifact not found at $AAB_PATH"
+            exit 1
+          fi
+          if [ ! -f "$APK_PATH" ]; then
+            echo "::error::Release APK artifact not found at $APK_PATH"
+            exit 1
+          fi
+
+          AAB_SIZE=$(stat -c%s "$AAB_PATH")
+          APK_SIZE=$(stat -c%s "$APK_PATH")
+
+          if [ "$AAB_SIZE" -le 0 ] || [ "$APK_SIZE" -le 0 ]; then
+            echo "::error::One or more release artifacts have 0 bytes size."
+            exit 1
+          fi
+
+          AAB_SHA256=$(sha256sum "$AAB_PATH" | awk '{print $1}')
+          APK_SHA256=$(sha256sum "$APK_PATH" | awk '{print $1}')
+
+          echo "=================================================="
+          echo "ARTIFACT INTEGRITY VERIFICATION"
+          echo "=================================================="
+          echo "AAB Path: $AAB_PATH ($AAB_SIZE bytes)"
+          echo "AAB SHA-256: $AAB_SHA256"
+          echo "APK Path: $APK_PATH ($APK_SIZE bytes)"
+          echo "APK SHA-256: $APK_SHA256"
+          echo "=================================================="
+
+          mkdir -p build/reports
+          cat <<EOF > build/reports/artifact-integrity.txt
+          Panda Zen Release Artifacts:
+          - AAB: $AAB_PATH
+            Size: $AAB_SIZE bytes
+            SHA-256: $AAB_SHA256
+          - APK: $APK_PATH
+            Size: $APK_SIZE bytes
+            SHA-256: $APK_SHA256
+          EOF
+
+      - name: Verify Signing Certificate & Mode
+        run: |
+          APK_PATH="build/app/outputs/flutter-apk/app-release.apk"
+          AAB_PATH="build/app/outputs/bundle/release/app-release.aab"
+
+          echo "=================================================="
+          echo "SIGNING CERTIFICATE VERIFICATION"
+          echo "=================================================="
+
+          echo "--- APK Certificate Metadata ---"
+          keytool -printcert -jarfile "$APK_PATH" || true
+
+          echo "--- AAB Certificate Metadata ---"
+          keytool -printcert -jarfile "$AAB_PATH" || true
+
+          echo "=================================================="
+          if [ "$IS_PRODUCTION_SIGNED" = "true" ]; then
+            echo "STATUS: RELEASE SIGNED WITH PRODUCTION KEY"
+          else
+            echo "STATUS: DEBUG SIGNED (FALLBACK / PREVIEW BUILD)"
+          fi
+          echo "=================================================="
+
+      - name: Upload Release AppBundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: panda-zen-release-aab
+          path: build/app/outputs/bundle/release/app-release.aab
 
       - name: Upload Release APK
         uses: actions/upload-artifact@v4
@@ -44,8 +161,8 @@ jobs:
           name: panda-zen-release-apk
           path: build/app/outputs/flutter-apk/app-release.apk
 
-      - name: Upload Release AppBundle
+      - name: Upload Artifact Integrity Report
         uses: actions/upload-artifact@v4
         with:
-          name: panda-zen-release-aab
-          path: build/app/outputs/bundle/release/app-release.aab
+          name: panda-zen-build-report
+          path: build/reports/artifact-integrity.txt

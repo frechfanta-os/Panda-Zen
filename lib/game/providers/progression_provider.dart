@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import '../../core/storage/save_service.dart';
+import '../models/progression_models.dart';
 
 class ProgressionState {
   final int currentWorld;
@@ -47,11 +48,21 @@ class ProgressionNotifier extends StateNotifier<ProgressionState> {
 
   void unlockNextLevel(int worldId, int currentLevel) {
     final nextLevel = currentLevel + 1;
-    final currentUnlocked = _saveService.getUnlockedLevel(worldId);
-    if (nextLevel > currentUnlocked) {
-      _saveService.setUnlockedLevel(worldId, nextLevel);
+    if (nextLevel <= SaveService.levelsPerWorld) {
+      final currentUnlocked = _saveService.getUnlockedLevel(worldId);
+      if (nextLevel > currentUnlocked) {
+        _saveService.setUnlockedLevel(worldId, nextLevel);
+      }
     }
     refresh();
+  }
+
+  LevelRecord getLevelRecord(int worldId, int levelId) {
+    return _saveService.getLevelRecord(worldId, levelId);
+  }
+
+  WorldRecord getWorldRecord(int worldId, [String? name]) {
+    return _saveService.getWorldRecord(worldId, name);
   }
 }
 

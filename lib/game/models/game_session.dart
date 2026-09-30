@@ -1,4 +1,5 @@
 import 'cell.dart';
+import 'progression_models.dart';
 import 'puzzle.dart';
 import 'puzzle_move.dart';
 
@@ -58,12 +59,12 @@ class GameSession {
   bool get isCompleted => foundPandas.length == puzzle.size;
   bool get isFailed => mistakes >= maxMistakes;
 
-  int calculateStars() {
-    if (!isCompleted) return 0;
-    if (mistakes == 0 && hintsUsed == 0) return 3;
-    if (mistakes <= 1 && hintsUsed <= 1) return 2;
-    return 1;
-  }
+  int calculateStars() => StarEvaluator.evaluate(
+        isCompleted: isCompleted,
+        mistakes: mistakes,
+        hintsUsed: hintsUsed,
+        elapsedSeconds: elapsedSeconds,
+      );
 
   GameSession copyWith({
     Puzzle? puzzle,

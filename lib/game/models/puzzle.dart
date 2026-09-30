@@ -18,7 +18,11 @@ class Puzzle {
   final PuzzleSolution solution;
   final Map<String, dynamic> metadata;
 
-  const Puzzle({
+  // Precomputed O(1) lookups
+  final List<int> _regionGrid;
+  final Map<int, Region> _regionMap;
+
+  Puzzle({
     required this.id,
     required this.seed,
     required this.size,
@@ -26,24 +30,29 @@ class Puzzle {
     required this.regions,
     required this.solution,
     this.metadata = const {},
-  });
-
-  Region? getRegion(int regionId) {
+  })  : _regionGrid = List.filled(size * size, 0),
+        _regionMap = {for (final r in regions) r.id: r} {
     for (final r in regions) {
-      if (r.id == regionId) return r;
+      for (final cell in r.cells) {
+        if (cell.row >= 0 && cell.row < size && cell.col >= 0 && cell.col < size) {
+          _regionGrid[cell.row * size + cell.col] = r.id;
+        }
+      }
     }
-    return null;
   }
 
+  /// O(1) lookup of Region by its ID
+  Region? getRegion(int regionId) => _regionMap[regionId];
+
+  /// O(1) lookup of Region for a Position
   Region? getRegionForPosition(Position pos) {
-    for (final r in regions) {
-      if (r.contains(pos)) return r;
-    }
-    return null;
+    final regId = getRegionId(pos.row, pos.col);
+    return regId != 0 ? _regionMap[regId] : null;
   }
 
+  /// O(1) lookup of Region ID by row and column
   int getRegionId(int row, int col) {
-    final reg = getRegionForPosition(Position(row, col));
-    return reg?.id ?? 0;
+    if (row < 0 || row >= size || col < 0 || col >= size) return 0;
+    return _regionGrid[row * size + col];
   }
 }

@@ -28,6 +28,9 @@ class DailyChallengeScreen extends ConsumerWidget {
     return Scaffold(
       body: Stack(
         children: [
+          // DAILY_ENVIRONMENT_MAPPING_PENDING:
+          // Currently mapped to World 2 (Moonlight Forest) for visual presentation.
+          // This mapping does NOT affect puzzle generation or logic (which relies solely on the daily seed).
           Positioned.fill(
             child: Image.asset(EnvironmentAssets.world2MoonlightForest, fit: BoxFit.cover),
           ),
@@ -52,13 +55,17 @@ class DailyChallengeScreen extends ConsumerWidget {
                         ),
                       ),
                       const SizedBox(width: 16),
-                      Text(
-                        l10n.dailyChallenge,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          shadows: [Shadow(color: Colors.black54, blurRadius: 8)],
+                      Expanded(
+                        child: Text(
+                          l10n.dailyChallenge,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            shadows: [Shadow(color: Colors.black54, blurRadius: 8)],
+                          ),
                         ),
                       ),
                     ],
@@ -109,6 +116,10 @@ class DailyChallengeScreen extends ConsumerWidget {
                         ),
                       ),
                       const SizedBox(height: 16),
+                      // DAILY_REPLAY_RULE_PENDING:
+                      // Current behavior after completion displays the completed badge and hides the play button.
+                      // Product decision pending: whether daily challenge should permit replaying for practice or score improvement.
+                      // Note: The deterministic puzzle can technically be reconstructed at any time from seedForDate(today).
                       if (isCompletedToday) ...[
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -134,10 +145,13 @@ class DailyChallengeScreen extends ConsumerWidget {
                           ),
                           onPressed: () {
                             final dailyGen = ref.read(dailyPuzzleGeneratorProvider);
-                            final puzzle = dailyGen.generateForDate(today, size: 5);
+                            final puzzle = dailyGen.generateForDate(today);
 
                             Navigator.of(context).push(
                               MaterialPageRoute(
+                                // DAILY_ENVIRONMENT_MAPPING_PENDING:
+                                // Launching with world: 2, level: today.day.
+                                // customPuzzle provides the deterministic daily puzzle independently of world/level.
                                 builder: (_) => GameplayScreen(
                                   world: 2,
                                   level: today.day,

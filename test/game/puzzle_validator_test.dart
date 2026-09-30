@@ -7,108 +7,153 @@ import 'package:panda_zen/game/models/region.dart';
 import 'package:panda_zen/assets/region_assets.dart';
 
 void main() {
-  group('PuzzleValidator Tests', () {
-    late Puzzle testPuzzle;
+  group('PuzzleValidator 8x8 Tests', () {
+    late Puzzle puzzle8x8;
+    late Set<Position> valid8x8Positions;
 
     setUp(() {
-      final regions = [
-        Region(
-          id: 1,
+      valid8x8Positions = {
+        const Position(0, 2),
+        const Position(1, 5),
+        const Position(2, 1),
+        const Position(3, 7),
+        const Position(4, 4),
+        const Position(5, 0),
+        const Position(6, 3),
+        const Position(7, 6),
+      };
+
+      // Create 8 regions (rows 0..7 as regions)
+      final regions = List.generate(8, (r) {
+        return Region(
+          id: r + 1,
           visualType: RegionVisualType.bamboo,
-          cells: [const Position(0, 0), const Position(0, 1), const Position(1, 0), const Position(1, 1)],
-        ),
-        Region(
-          id: 2,
-          visualType: RegionVisualType.water,
-          cells: [const Position(0, 2), const Position(0, 3), const Position(1, 2), const Position(1, 3)],
-        ),
-        Region(
-          id: 3,
-          visualType: RegionVisualType.stones,
-          cells: [const Position(2, 0), const Position(2, 1), const Position(3, 0), const Position(3, 1)],
-        ),
-        Region(
-          id: 4,
-          visualType: RegionVisualType.flowers,
-          cells: [const Position(2, 2), const Position(2, 3), const Position(3, 2), const Position(3, 3)],
-        ),
-      ];
+          cells: List.generate(8, (c) => Position(r, c)),
+        );
+      });
 
-      testPuzzle = Puzzle(
-        id: 'test_4x4',
-        seed: 'test_seed',
-        size: 4,
-        difficulty: PuzzleDifficulty.easy,
+      puzzle8x8 = Puzzle(
+        id: 'test_8x8',
+        seed: 'seed_8x8',
+        size: 8,
+        difficulty: PuzzleDifficulty.medium,
         regions: regions,
-        solution: PuzzleSolution(
-          pandaPositions: {
-            const Position(0, 1),
-            const Position(1, 3),
-            const Position(2, 0),
-            const Position(3, 2),
-          },
-        ),
+        solution: PuzzleSolution(pandaPositions: valid8x8Positions),
       );
     });
 
-    test('Valid solution passes all 4 rules', () {
-      final validSolution = PuzzleSolution(
-        pandaPositions: {
-          const Position(0, 1),
-          const Position(1, 3),
-          const Position(2, 0),
-          const Position(3, 2),
-        },
-      );
-      expect(PuzzleValidator.isValidSolution(testPuzzle, validSolution), isTrue);
+    test('8x8 valid solution passes all rules', () {
+      final solution = PuzzleSolution(pandaPositions: valid8x8Positions);
+      expect(PuzzleValidator.isValidSolution(puzzle8x8, solution), isTrue);
     });
 
-    test('Rule 2 violation (two pandas in same row) fails', () {
-      final invalidSolution = PuzzleSolution(
-        pandaPositions: {
-          const Position(0, 1),
-          const Position(0, 2), // Same row
-          const Position(2, 0),
-          const Position(3, 2),
-        },
-      );
-      expect(PuzzleValidator.isValidSolution(testPuzzle, invalidSolution), isFalse);
+    test('8x8 invalid solution with wrong count fails', () {
+      final solution = PuzzleSolution(pandaPositions: valid8x8Positions.take(7).toSet());
+      expect(PuzzleValidator.isValidSolution(puzzle8x8, solution), isFalse);
     });
 
-    test('Rule 3 violation (two pandas in same column) fails', () {
-      final invalidSolution = PuzzleSolution(
-        pandaPositions: {
-          const Position(0, 1),
-          const Position(1, 1), // Same column
-          const Position(2, 0),
-          const Position(3, 2),
-        },
-      );
-      expect(PuzzleValidator.isValidSolution(testPuzzle, invalidSolution), isFalse);
+    test('8x8 row constraint violation fails', () {
+      final invalid = Set<Position>.from(valid8x8Positions)
+        ..remove(const Position(1, 5))
+        ..add(const Position(0, 5)); // Two pandas in row 0
+      expect(PuzzleValidator.isValidSolution(puzzle8x8, PuzzleSolution(pandaPositions: invalid)), isFalse);
     });
 
-    test('Rule 4 violation (diagonal touch) fails', () {
-      final invalidSolution = PuzzleSolution(
-        pandaPositions: {
-          const Position(0, 0),
-          const Position(1, 1), // Diagonally touching
-          const Position(2, 3),
-          const Position(3, 2),
-        },
-      );
-      expect(PuzzleValidator.isValidSolution(testPuzzle, invalidSolution), isFalse);
+    test('8x8 column constraint violation fails', () {
+      final invalid = Set<Position>.from(valid8x8Positions)
+        ..remove(const Position(1, 5))
+        ..add(const Position(1, 2)); // Two pandas in col 2
+      expect(PuzzleValidator.isValidSolution(puzzle8x8, PuzzleSolution(pandaPositions: invalid)), isFalse);
     });
 
-    test('Rule 1 violation (two pandas in same region) fails', () {
-      final invalidSolution = PuzzleSolution(
-        pandaPositions: {
-          const Position(0, 0),
-          const Position(1, 1), // Both in region 1
-          const Position(2, 3),
-          const Position(3, 2),
-        },
+    test('8x8 diagonal constraint violation fails', () {
+      final invalid = Set<Position>.from(valid8x8Positions)
+        ..remove(const Position(1, 5))
+        ..add(const Position(1, 3)); // Touches (0,2) diagonally: diff (1, 1)
+      expect(PuzzleValidator.isValidSolution(puzzle8x8, PuzzleSolution(pandaPositions: invalid)), isFalse);
+    });
+
+    test('8x8 region constraint violation fails', () {
+      final invalid = Set<Position>.from(valid8x8Positions)
+        ..remove(const Position(1, 5))
+        ..add(const Position(0, 7)); // Both in region 1 (row 0)
+      expect(PuzzleValidator.isValidSolution(puzzle8x8, PuzzleSolution(pandaPositions: invalid)), isFalse);
+    });
+  });
+
+  group('PuzzleValidator 10x10 Tests', () {
+    late Puzzle puzzle10x10;
+    late Set<Position> valid10x10Positions;
+
+    setUp(() {
+      valid10x10Positions = {
+        const Position(0, 2),
+        const Position(1, 5),
+        const Position(2, 1),
+        const Position(3, 7),
+        const Position(4, 4),
+        const Position(5, 9),
+        const Position(6, 0),
+        const Position(7, 3),
+        const Position(8, 6),
+        const Position(9, 8),
+      };
+
+      // 10 regions (each row is a region)
+      final regions = List.generate(10, (r) {
+        return Region(
+          id: r + 1,
+          visualType: RegionVisualType.bamboo,
+          cells: List.generate(10, (c) => Position(r, c)),
+        );
+      });
+
+      puzzle10x10 = Puzzle(
+        id: 'test_10x10',
+        seed: 'seed_10x10',
+        size: 10,
+        difficulty: PuzzleDifficulty.expert,
+        regions: regions,
+        solution: PuzzleSolution(pandaPositions: valid10x10Positions),
       );
-      expect(PuzzleValidator.isValidSolution(testPuzzle, invalidSolution), isFalse);
+    });
+
+    test('10x10 valid solution passes all rules', () {
+      final solution = PuzzleSolution(pandaPositions: valid10x10Positions);
+      expect(PuzzleValidator.isValidSolution(puzzle10x10, solution), isTrue);
+    });
+
+    test('10x10 invalid solution with wrong count fails', () {
+      final solution = PuzzleSolution(pandaPositions: valid10x10Positions.take(9).toSet());
+      expect(PuzzleValidator.isValidSolution(puzzle10x10, solution), isFalse);
+    });
+
+    test('10x10 row constraint violation fails', () {
+      final invalid = Set<Position>.from(valid10x10Positions)
+        ..remove(const Position(1, 5))
+        ..add(const Position(0, 5)); // Two pandas in row 0
+      expect(PuzzleValidator.isValidSolution(puzzle10x10, PuzzleSolution(pandaPositions: invalid)), isFalse);
+    });
+
+    test('10x10 column constraint violation fails', () {
+      final invalid = Set<Position>.from(valid10x10Positions)
+        ..remove(const Position(1, 5))
+        ..add(const Position(1, 2)); // Two pandas in col 2
+      expect(PuzzleValidator.isValidSolution(puzzle10x10, PuzzleSolution(pandaPositions: invalid)), isFalse);
+    });
+
+    test('10x10 diagonal constraint violation fails', () {
+      final invalid = Set<Position>.from(valid10x10Positions)
+        ..remove(const Position(1, 5))
+        ..add(const Position(1, 3)); // Touches (0,2) diagonally
+      expect(PuzzleValidator.isValidSolution(puzzle10x10, PuzzleSolution(pandaPositions: invalid)), isFalse);
+    });
+
+    test('10x10 region constraint violation fails', () {
+      final invalid = Set<Position>.from(valid10x10Positions)
+        ..remove(const Position(1, 5))
+        ..add(const Position(0, 7)); // Both in region 1
+      expect(PuzzleValidator.isValidSolution(puzzle10x10, PuzzleSolution(pandaPositions: invalid)), isFalse);
     });
   });
 }

@@ -85,8 +85,33 @@ class GameNotifier extends StateNotifier<GameSession> {
         _timer?.cancel();
         _sfx.playCorrect();
         final stars = state.calculateStars();
-        _saveService.setLevelStars(state.puzzle.id, stars);
-        _saveService.setLevelBestTime(state.puzzle.id, state.elapsedSeconds);
+
+        final (worldId, levelId) = _parseWorldAndLevel(state.puzzle.seed);
+        if (worldId != null && levelId != null) {
+          await _saveService.recordLevelCompletion(
+            worldId: worldId,
+            levelId: levelId,
+            stars: stars,
+            timeSeconds: state.elapsedSeconds,
+            mistakes: state.mistakes,
+            hintsUsed: state.hintsUsed,
+          );
+        } else {
+          final key = state.puzzle.seed.isNotEmpty ? state.puzzle.seed : state.puzzle.id;
+          await _saveService.setLevelStars(key, stars);
+          await _saveService.setLevelBestTime(key, state.elapsedSeconds);
+
+          if (state.puzzle.seed.startsWith('PANDA_ZEN_')) {
+            final dateKey = state.puzzle.seed.substring('PANDA_ZEN_'.length);
+            await _saveService.saveDailyChallenge(
+              date: dateKey,
+              completed: true,
+              time: state.elapsedSeconds,
+              mistakes: state.mistakes,
+              hints: state.hintsUsed,
+            );
+          }
+        }
       }
     } else {
       newCellStates[pos] = CellState.revealedEmpty;
@@ -146,7 +171,22 @@ class GameNotifier extends StateNotifier<GameSession> {
   void useHint() {
     if (state.status != GameStatus.playing) return;
 
-    // Find unrevealed panda
+    // Check if there is already an active hinted cell awaiting discovery
+    Position? alreadyHinted;
+    for (final entry in state.cellStates.entries) {
+      if (entry.value == CellState.hinted) {
+        alreadyHinted = entry.key;
+        break;
+      }
+    }
+
+    if (alreadyHinted != null) {
+      // Progressively reveal the logically forced panda position
+      tapCell(alreadyHinted.row, alreadyHinted.col);
+      return;
+    }
+
+    // Find an unrevealed panda from the solution
     Position? targetPanda;
     for (final p in state.puzzle.solution.pandaPositions) {
       if (!state.foundPandas.contains(p)) {
@@ -166,6 +206,16 @@ class GameNotifier extends StateNotifier<GameSession> {
       cellStates: newStates,
       hintsUsed: state.hintsUsed + 1,
     );
+  }
+
+  (int?, int?) _parseWorldAndLevel(String seed) {
+    final match = RegExp(r'^PZ_W(\d+)_L(\d+)$').firstMatch(seed);
+    if (match != null) {
+      final world = int.tryParse(match.group(1)!);
+      final level = int.tryParse(match.group(2)!);
+      return (world, level);
+    }
+    return (null, null);
   }
 
   @override

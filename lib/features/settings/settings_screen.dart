@@ -64,13 +64,17 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                         ),
                       ),
                       const SizedBox(width: 16),
-                      Text(
-                        l10n.settings,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 26,
-                          fontWeight: FontWeight.bold,
-                          shadows: [Shadow(color: Colors.black54, blurRadius: 8)],
+                      Expanded(
+                        child: Text(
+                          l10n.settings,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 26,
+                            fontWeight: FontWeight.bold,
+                            shadows: [Shadow(color: Colors.black54, blurRadius: 8)],
+                          ),
                         ),
                       ),
                     ],
@@ -175,7 +179,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                             ),
                           ),
                           const SizedBox(height: 8),
-                          Row(
+                          Wrap(
+                            spacing: 12,
+                            runSpacing: 8,
                             children: [
                               ChoiceChip(
                                 label: Text(l10n.english),
@@ -186,7 +192,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                                   }
                                 },
                               ),
-                              const SizedBox(width: 12),
                               ChoiceChip(
                                 label: Text(l10n.french),
                                 selected: locale.languageCode == 'fr',
@@ -201,15 +206,18 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                           const Divider(),
 
                           // How to play
-                          ListTile(
-                            contentPadding: EdgeInsets.zero,
-                            leading: const Icon(Icons.help_outline, color: Color(0xFF3E2723)),
-                            title: Text(
-                              l10n.howToPlay,
-                              style: const TextStyle(fontWeight: FontWeight.bold),
+                          Material(
+                            color: Colors.transparent,
+                            child: ListTile(
+                              contentPadding: EdgeInsets.zero,
+                              leading: const Icon(Icons.help_outline, color: Color(0xFF3E2723)),
+                              title: Text(
+                                l10n.howToPlay,
+                                style: const TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                              onTap: () => _showHowToPlayDialog(context, l10n),
                             ),
-                            trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-                            onTap: () => _showHowToPlayDialog(context, l10n),
                           ),
                         ],
                       ),

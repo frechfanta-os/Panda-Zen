@@ -13,7 +13,7 @@ class DailyPuzzleGenerator {
     return 'PANDA_ZEN_$y-$m-$d';
   }
 
-  Puzzle generateForDate(DateTime date, {int size = 5}) {
+  Puzzle generateForDate(DateTime date, {int size = 8}) {
     final seed = seedForDate(date);
     return generator.generate(
       size: size,

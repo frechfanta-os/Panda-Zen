@@ -57,13 +57,17 @@ class WorldsScreen extends ConsumerWidget {
                         ),
                       ),
                       const SizedBox(width: 16),
-                      Text(
-                        l10n.worlds,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 26,
-                          fontWeight: FontWeight.bold,
-                          shadows: [Shadow(color: Colors.black54, blurRadius: 8)],
+                      Expanded(
+                        child: Text(
+                          l10n.worlds,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 26,
+                            fontWeight: FontWeight.bold,
+                            shadows: [Shadow(color: Colors.black54, blurRadius: 8)],
+                          ),
                         ),
                       ),
                     ],
@@ -78,10 +82,7 @@ class WorldsScreen extends ConsumerWidget {
                     itemBuilder: (context, index) {
                       final (worldId, name, bg) = worlds[index];
 
-                      int starsEarned = 0;
-                      for (int lvl = 1; lvl <= 10; lvl++) {
-                        starsEarned += save.getLevelStars('PZ_W${worldId}_L$lvl');
-                      }
+                      final starsEarned = save.getWorldStars(worldId);
 
                       return GestureDetector(
                         onTap: () {
@@ -168,7 +169,7 @@ class WorldsScreen extends ConsumerWidget {
                                       const Icon(Icons.star, color: Color(0xFFFFD54F), size: 18),
                                       const SizedBox(width: 4),
                                       Text(
-                                        '$starsEarned/30',
+                                        '$starsEarned/90',
                                         style: const TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold,

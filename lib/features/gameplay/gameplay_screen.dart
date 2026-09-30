@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../assets/environment_assets.dart';
 import '../../assets/panda_assets.dart';
-import '../../assets/ui_assets.dart';
 import '../../game/models/game_session.dart';
 import '../../game/models/puzzle.dart';
 import '../../game/providers/game_provider.dart';
 import '../../game/providers/progression_provider.dart';
 import '../../game/providers/puzzle_provider.dart';
+import '../../game/widgets/gameplay_hud.dart';
 import '../../game/widgets/puzzle_board.dart';
 import 'package:panda_zen/l10n/app_localizations.dart';
 
@@ -44,15 +44,23 @@ class _GameplayScreenState extends ConsumerState<GameplayScreen> {
     final notifier = ref.read(gameProviderFamily(puzzle).notifier);
 
     // Completion or failure triggers
-    ref.listen<GameSession>(gameProviderFamily(puzzle), (previous, current) {
+    ref.listen<GameSession>(gameProviderFamily(puzzle), (previous, current) async {
       if (!_modalShown) {
         if (current.status == GameStatus.completed) {
           _modalShown = true;
           ref.read(progressionProvider.notifier).unlockNextLevel(widget.world, widget.level);
-          _showVictoryDialog(context, current, l10n);
+          // Allow final panda reveal animation (400ms) to be fully enjoyed by player
+          await Future.delayed(const Duration(milliseconds: 650));
+          if (context.mounted) {
+            _showVictoryDialog(context, current, l10n);
+          }
         } else if (current.status == GameStatus.failed) {
           _modalShown = true;
-          _showFailedDialog(context, notifier, l10n);
+          // Allow final mistake shake animation (350ms) to complete before game over dialog
+          await Future.delayed(const Duration(milliseconds: 500));
+          if (context.mounted) {
+            _showFailedDialog(context, notifier, l10n);
+          }
         }
       }
     });
@@ -80,24 +88,25 @@ class _GameplayScreenState extends ConsumerState<GameplayScreen> {
             child: Column(
               children: [
                 // Top HUD
-                _buildTopHud(context, session, notifier, l10n, locale),
+                _buildTopHud(context, session, notifier, l10n),
 
-                const Spacer(),
-
-                // Center Board
-                Center(
-                  child: PuzzleBoard(
-                    puzzle: puzzle,
-                    cellStates: session.cellStates,
-                    onCellTap: (r, c) => notifier.tapCell(r, c),
+                // Board Area: maximizes screen space while preserving square aspect ratio
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    child: Center(
+                      child: PuzzleBoard(
+                        puzzle: puzzle,
+                        cellStates: session.cellStates,
+                        onCellTap: (r, c) => notifier.tapCell(r, c),
+                      ),
+                    ),
                   ),
                 ),
 
-                const Spacer(),
-
                 // Bottom Action Bar
                 _buildBottomBar(context, session, notifier, l10n, locale),
-                const SizedBox(height: 12),
+                const SizedBox(height: 8),
               ],
             ),
           ),
@@ -111,109 +120,18 @@ class _GameplayScreenState extends ConsumerState<GameplayScreen> {
     GameSession session,
     GameNotifier notifier,
     AppLocalizations l10n,
-    Locale locale,
   ) {
     final title = widget.customTitle ?? '${l10n.level} ${widget.level}';
-    final minutes = (session.elapsedSeconds ~/ 60).toString().padLeft(2, '0');
-    final seconds = (session.elapsedSeconds % 60).toString().padLeft(2, '0');
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: Row(
-        children: [
-          // Back button
-          GestureDetector(
-            onTap: () => Navigator.of(context).pop(),
-            child: Image.asset(
-              UiAssets.getSprite(UiSprite.btnBack, locale),
-              width: 44,
-              height: 44,
-            ),
-          ),
-          const SizedBox(width: 8),
-
-          // Level Header Banner
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-              decoration: BoxDecoration(
-                color: const Color(0xFF3E2723).withValues(alpha: 0.85),
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: const Color(0xFFD7CCC8), width: 1.5),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Image.asset(PandaAssets.happyWave, width: 26, height: 26),
-                      const SizedBox(width: 6),
-                      Text(
-                        title,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Text(
-                    '$minutes:$seconds',
-                    style: const TextStyle(
-                      color: Color(0xFFFFD54F),
-                      fontWeight: FontWeight.w600,
-                      fontSize: 15,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(width: 8),
-
-          // Mistakes / Hearts indicator
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-            decoration: BoxDecoration(
-              color: const Color(0xFF3E2723).withValues(alpha: 0.85),
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: const Color(0xFFD7CCC8), width: 1.5),
-            ),
-            child: Row(
-              children: List.generate(session.maxMistakes, (i) {
-                final isAlive = i < (session.maxMistakes - session.mistakes);
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 2),
-                  child: Icon(
-                    Icons.favorite,
-                    size: 18,
-                    color: isAlive ? Colors.redAccent : Colors.grey.withValues(alpha: 0.6),
-                  ),
-                );
-              }),
-            ),
-          ),
-          const SizedBox(width: 8),
-
-          // Pause Button
-          GestureDetector(
-            onTap: () {
-              notifier.pauseGame();
-              _showPauseDialog(context, notifier, l10n);
-            },
-            child: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: const Color(0xFF3E2723).withValues(alpha: 0.85),
-                shape: BoxShape.circle,
-                border: Border.all(color: const Color(0xFFD7CCC8), width: 1.5),
-              ),
-              child: const Icon(Icons.pause, color: Colors.white, size: 22),
-            ),
-          ),
-        ],
-      ),
+    return GameplayHud(
+      title: title,
+      elapsedSeconds: session.elapsedSeconds,
+      mistakes: session.mistakes,
+      maxMistakes: session.maxMistakes,
+      onPause: () {
+        notifier.pauseGame();
+        _showPauseDialog(context, notifier, l10n);
+      },
     );
   }
 
@@ -225,33 +143,47 @@ class _GameplayScreenState extends ConsumerState<GameplayScreen> {
     Locale locale,
   ) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           // Undo Button
-          _buildActionButton(
-            label: l10n.undo,
-            icon: Icons.undo,
-            color: const Color(0xFF8D6E63),
-            onTap: session.history.isNotEmpty ? () => notifier.undo() : null,
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 3),
+              child: _buildActionButton(
+                label: l10n.undo,
+                icon: Icons.undo,
+                color: const Color(0xFF8D6E63),
+                onTap: session.history.isNotEmpty ? () => notifier.undo() : null,
+              ),
+            ),
           ),
 
           // Restart Button
-          _buildActionButton(
-            label: l10n.restart,
-            icon: Icons.refresh,
-            color: const Color(0xFFD32F2F),
-            onTap: () => notifier.restart(),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 3),
+              child: _buildActionButton(
+                label: l10n.restart,
+                icon: Icons.refresh,
+                color: const Color(0xFFD32F2F),
+                onTap: () => notifier.restart(),
+              ),
+            ),
           ),
 
           // Hint Button
-          _buildActionButton(
-            label: l10n.hint,
-            icon: Icons.lightbulb,
-            color: const Color(0xFF388E3C),
-            badge: session.hintsUsed > 0 ? '${session.hintsUsed}' : null,
-            onTap: () => notifier.useHint(),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 3),
+              child: _buildActionButton(
+                label: l10n.hint,
+                icon: Icons.lightbulb,
+                color: const Color(0xFF388E3C),
+                badge: session.hintsUsed > 0 ? '${session.hintsUsed}' : null,
+                onTap: () => notifier.useHint(),
+              ),
+            ),
           ),
         ],
       ),
@@ -271,7 +203,7 @@ class _GameplayScreenState extends ConsumerState<GameplayScreen> {
       child: Opacity(
         opacity: enabled ? 1.0 : 0.45,
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
           decoration: BoxDecoration(
             color: color.withValues(alpha: 0.9),
             borderRadius: BorderRadius.circular(20),
@@ -285,22 +217,29 @@ class _GameplayScreenState extends ConsumerState<GameplayScreen> {
             ],
           ),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(icon, color: Colors.white, size: 20),
-              const SizedBox(width: 6),
-              Text(
-                label,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
+              Icon(icon, color: Colors.white, size: 18),
+              const SizedBox(width: 4),
+              Flexible(
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    label,
+                    maxLines: 1,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                    ),
+                  ),
                 ),
               ),
               if (badge != null) ...[
                 const SizedBox(width: 4),
                 Container(
-                  padding: const EdgeInsets.all(4),
+                  padding: const EdgeInsets.all(3),
                   decoration: const BoxDecoration(
                     color: Colors.amber,
                     shape: BoxShape.circle,
@@ -420,14 +359,27 @@ class _GameplayScreenState extends ConsumerState<GameplayScreen> {
                       ),
                       onPressed: () {
                         Navigator.of(ctx).pop();
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (_) => GameplayScreen(
-                              world: widget.world,
-                              level: widget.level + 1,
+                        if (widget.level < 30) {
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (_) => GameplayScreen(
+                                world: widget.world,
+                                level: widget.level + 1,
+                              ),
                             ),
-                          ),
-                        );
+                          );
+                        } else if (widget.world < 6) {
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (_) => GameplayScreen(
+                                world: widget.world + 1,
+                                level: 1,
+                              ),
+                            ),
+                          );
+                        } else {
+                          Navigator.of(context).pop();
+                        }
                       },
                       child: const Icon(Icons.play_arrow, size: 32, color: Colors.white),
                     ),
@@ -503,7 +455,7 @@ class _GameplayScreenState extends ConsumerState<GameplayScreen> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF4CAF50),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                       ),
                       onPressed: () {
                         Navigator.of(ctx).pop();
@@ -511,9 +463,10 @@ class _GameplayScreenState extends ConsumerState<GameplayScreen> {
                         notifier.restart();
                       },
                       child: Row(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Icon(Icons.refresh, color: Colors.white),
-                          const SizedBox(width: 8),
+                          const Icon(Icons.refresh, color: Colors.white, size: 20),
+                          const SizedBox(width: 6),
                           Text(l10n.restart, style: const TextStyle(color: Colors.white)),
                         ],
                       ),

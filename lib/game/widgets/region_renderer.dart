@@ -58,6 +58,14 @@ class RegionStyle {
         );
     }
   }
+
+  /// Computes a responsive border stroke width based on the cell size.
+  /// Remains crisp and legible for both 8x8 (~42dp cells) and 10x10 (~33dp cells)
+  /// without consuming an excessive percentage of the cell.
+  static double responsiveBorderWidth(double cellSize) {
+    if (cellSize <= 0) return 1.5;
+    return (cellSize * 0.055).clamp(1.5, 3.0);
+  }
 }
 
 class RegionBorderPainter extends CustomPainter {
@@ -74,7 +82,7 @@ class RegionBorderPainter extends CustomPainter {
     required this.borderLeft,
     required this.borderRight,
     required this.color,
-    this.strokeWidth = 3.5,
+    this.strokeWidth = 2.0,
   });
 
   @override
@@ -82,7 +90,7 @@ class RegionBorderPainter extends CustomPainter {
     final paint = Paint()
       ..color = color
       ..strokeWidth = strokeWidth
-      ..strokeCap = StrokeCap.round
+      ..strokeCap = StrokeCap.square
       ..style = PaintingStyle.stroke;
 
     final half = strokeWidth / 2;
