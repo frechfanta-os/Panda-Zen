@@ -130,24 +130,30 @@ jobs:
         run: |
           APK_PATH="build/app/outputs/flutter-apk/app-release.apk"
           AAB_PATH="build/app/outputs/bundle/release/app-release.aab"
+          mkdir -p build/reports
 
-          echo "=================================================="
-          echo "SIGNING CERTIFICATE VERIFICATION"
-          echo "=================================================="
+          echo "==================================================" | tee build/reports/signing-verification.txt
+          echo "SIGNING CERTIFICATE VERIFICATION" | tee -a build/reports/signing-verification.txt
+          echo "==================================================" | tee -a build/reports/signing-verification.txt
 
-          echo "--- APK Certificate Metadata ---"
-          keytool -printcert -jarfile "$APK_PATH" || true
+          echo "--- AAB Certificate Metadata (keytool) ---" | tee -a build/reports/signing-verification.txt
+          keytool -printcert -jarfile "$AAB_PATH" | tee -a build/reports/signing-verification.txt || true
 
-          echo "--- AAB Certificate Metadata ---"
-          keytool -printcert -jarfile "$AAB_PATH" || true
-
-          echo "=================================================="
-          if [ "$IS_PRODUCTION_SIGNED" = "true" ]; then
-            echo "STATUS: RELEASE SIGNED WITH PRODUCTION KEY"
+          echo "--- APK Certificate Metadata (apksigner) ---" | tee -a build/reports/signing-verification.txt
+          APKSIGNER=$(find "$ANDROID_HOME/build-tools" -name apksigner 2>/dev/null | sort -V | tail -n 1)
+          if [ -x "$APKSIGNER" ]; then
+            "$APKSIGNER" verify --verbose --print-certs "$APK_PATH" | tee -a build/reports/signing-verification.txt || true
           else
-            echo "STATUS: DEBUG SIGNED (FALLBACK / PREVIEW BUILD)"
+            keytool -printcert -jarfile "$APK_PATH" | tee -a build/reports/signing-verification.txt || true
           fi
-          echo "=================================================="
+
+          echo "==================================================" | tee -a build/reports/signing-verification.txt
+          if [ "$IS_PRODUCTION_SIGNED" = "true" ]; then
+            echo "STATUS: RELEASE SIGNED WITH PRODUCTION KEY" | tee -a build/reports/signing-verification.txt
+          else
+            echo "STATUS: DEBUG SIGNED (FALLBACK / PREVIEW BUILD)" | tee -a build/reports/signing-verification.txt
+          fi
+          echo "==================================================" | tee -a build/reports/signing-verification.txt
 
       - name: Upload Release AppBundle
         uses: actions/upload-artifact@v4
@@ -160,6 +166,12 @@ jobs:
         with:
           name: panda-zen-release-apk
           path: build/app/outputs/flutter-apk/app-release.apk
+
+      - name: Upload Signing Verification Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: panda-zen-signing-report
+          path: build/reports/signing-verification.txt
 
       - name: Upload Artifact Integrity Report
         uses: actions/upload-artifact@v4
